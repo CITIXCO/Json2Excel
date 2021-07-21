@@ -10,8 +10,8 @@ result = []
 for item in data["features"]:
     if item.get('geometry').get('type') == "Polygon" and item.get('properties').get('Name'):
         my_dict = {}
-        my_dict['price'] = item.get('properties').get('Name')
         my_dict['polygon'] = []
+        my_dict['price'] = item.get('properties').get('Name')
         my_dict['city_id'] = 118
         my_dict['vehicle_type_id'] = 3
         my_dict['round_trip_percent'] = 20
