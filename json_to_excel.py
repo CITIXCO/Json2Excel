@@ -2,18 +2,18 @@ import json
 import pandas as pd
 
 
-with open('map.json') as json_file:
+with open('nevadacabecera.json') as json_file:
     data = json.load(json_file)
 
 
 result = []
 for item in data["features"]:
     try:
-        temp_price = int(item.get('properties').get('Name'))
+        temp_price = int(item.get('properties').get('name'))
     except ValueError:
         temp_price = 0
 
-    if item.get('geometry').get('type') == "Polygon" and item.get('properties').get('Name') and temp_price:
+    if item.get('geometry').get('type') == "Polygon" and item.get('properties').get('name') and temp_price:
         my_dict = {}
         my_dict['polygon'] = []
         my_dict['price'] = temp_price
@@ -27,4 +27,4 @@ for item in data["features"]:
         result.append(my_dict)
 
 df = pd.DataFrame(result)
-df.to_excel('map.xlsx')
+df.to_excel('nevadacabecera.xlsx')
