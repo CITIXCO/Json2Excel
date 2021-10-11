@@ -2,7 +2,7 @@ import json
 import pandas as pd
 
 
-with open('nevadacabecera.json') as json_file:
+with open('diamante.json') as json_file:
     data = json.load(json_file)
 
 
@@ -20,11 +20,12 @@ for item in data["features"]:
         my_dict['city_id'] = 118
         my_dict['vehicle_type_id'] = 3
         my_dict['round_trip_percent'] = 20
-        my_dict['company_id'] = 9
+        my_dict['company_id'] = 14
+        my_dict['negotiation_id'] = 8
         if len(item.get('geometry').get('coordinates')):
             my_dict['polygon'] = item.get('geometry').get('coordinates')[0]
 
         result.append(my_dict)
 
 df = pd.DataFrame(result)
-df.to_excel('nevadacabecera.xlsx')
+df.to_excel('diamante.xlsx')
