@@ -85,7 +85,7 @@ def kml_to_geojson(*, kml_path):
 
 def convert_to_area_tariff_sql_query(*, data_frame):
     insert_query = """
-INSERT INTO area_tariffs
+INSERT INTO services.area_tariffs
 (
     name,
     polygon,
@@ -116,7 +116,7 @@ def convert_to_area_tariffs_users_sql_query(
 ):
     backend = "FRANCHISES"
     return f"""
-INSERT INTO area_tariffs_users
+INSERT INTO services.area_tariffs_users
     (user_id, backend, negotiation_id, company_id)
 VALUES
     ({user_id}, '{backend}', {negotiation_id}, {company});
@@ -124,7 +124,7 @@ VALUES
 
 def convert_to_permissions_sql_query(*, users, permissions):
     insert_query = """
-INSERT INTO model_has_permissions
+INSERT INTO franchises.model_has_permissions
     (permission_id, model_type, model_id)
 """
     model_type = "App\\User"
@@ -141,10 +141,11 @@ INSERT INTO model_has_permissions
 def main():
     # config
 
-    franchise_user_id = 471
-    negotiation_id = 53
+    enterprise = "Don Jacobo Pereira Av. 30 de Agosto"
+    kml_path = "kmls/Don Jacobo Pereira Av. 30 de Agosto.kml"
+    negotiation_id = 54
+    franchise_user_id = 473
     city = "pereira"
-    kml_path = "kmls/Don jacobo Pereira.kml"
     permissions = ["edit_invoice", "edit_destinatary_click_lite"]
 
     # process
@@ -162,7 +163,7 @@ def main():
         city_id=cities[city],
         company_id=companies[city],
         negotiation_id=negotiation_id,
-        enterprise='Don Jacobo Pereira'
+        enterprise=enterprise,
     )
 
     area_tariff = convert_to_area_tariff_sql_query(data_frame=df)
