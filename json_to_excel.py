@@ -10,6 +10,7 @@ companies = {
     'girardot': 23,
     'cali': 25,
     'pereira': 27,
+    'bogota': 28,
 }
 
 cities = {
@@ -20,6 +21,7 @@ cities = {
     'girardot': 372,
     'cali': 150,
     'pereira': 657,
+    'bogota': 107,
 }
 
 permission_map = {
@@ -127,7 +129,7 @@ def convert_to_permissions_sql_query(*, users, permissions):
 INSERT INTO franchises.model_has_permissions
     (permission_id, model_type, model_id)
 """
-    model_type = "App\\User"
+    model_type = "App\\\\User"
     values = []
     for user in users:
         for permission in permissions:
@@ -141,12 +143,16 @@ INSERT INTO franchises.model_has_permissions
 def main():
     # config
 
-    enterprise = "Don Jacobo Pereira Av. 30 de Agosto"
-    kml_path = "kmls/Don Jacobo Pereira Av. 30 de Agosto.kml"
-    negotiation_id = 54
-    franchise_user_id = 473
-    city = "pereira"
-    permissions = ["edit_invoice", "edit_destinatary_click_lite"]
+    enterprise = "Don Jacobo Bototá"
+    kml_path = "kmls\DJ BOGOTA DOM.kml"
+    negotiation_id = 59
+    franchise_user_id = 480
+    city = "bogota"
+    permissions = [
+        "edit_destinatary_click_lite",
+        # "edit_order_value",
+        "edit_invoice",
+    ]
 
     # process
 
