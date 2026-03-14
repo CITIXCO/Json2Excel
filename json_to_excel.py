@@ -43,18 +43,6 @@ def citix_kml_dict_to_data_frame(
 ):
     result = []
     for item in data["features"]:
-        try:
-            base_name = item.get('properties').get('Name')
-            if not base_name:
-                base_name = item.get('properties').get('name')
-            if not base_name:
-                base_name = item.get('properties').get('NAME')
-            if not base_name:
-                base_name = '0'
-            price = int(base_name)
-        except ValueError:
-            price = 0
-
         real_name = item.get('properties').get('Description')
         if not real_name:
             real_name = item.get('properties').get('description')
@@ -62,6 +50,23 @@ def citix_kml_dict_to_data_frame(
             real_name = item.get('properties').get('DESCRIPTION')
         if not real_name:
             real_name = enterprise
+
+        try:
+            base_name = item.get('properties').get('name')
+            if not base_name:
+                base_name = item.get('properties').get('Name')
+            if not base_name:
+                base_name = item.get('properties').get('NAME')
+            if not base_name:
+                base_name = '0'
+            # print(f" - Found area tariff: name: '{base_name}' - description: '{real_name}'")
+            price = int(base_name)
+        except ValueError as ve:
+            price = 0
+            print(f"   ! Invalid price value for area tariff: name: '{base_name}' - description: '{real_name}' setting to 0")
+            print(f"     Error: {ve}")
+
+        # print(f" - Processing area tariff: Nombre: {real_name} - Precio: {price}")
 
         if item.get('geometry').get('type') == "Polygon":
             my_dict = {}
@@ -143,10 +148,10 @@ INSERT INTO franchises.model_has_permissions
 def main():
     # config
 
-    enterprise = "Don Jacobo Bototá"
-    kml_path = "kmls\DJ BOGOTA DOM.kml"
-    negotiation_id = 59
-    franchise_user_id = 480
+    enterprise = "Don Jacobo Santa Barbara"
+    kml_path = "kmls/DJ BOGOTA CITIX (4).kml"
+    negotiation_id = 63
+    franchise_user_id = 485
     city = "bogota"
     permissions = [
         "edit_destinatary_click_lite",
