@@ -147,12 +147,24 @@ INSERT INTO franchises.model_has_permissions
 
 def main():
     # config
+    """
+    Verificación de existencia de relcion negociacion con usuario:
 
-    enterprise = "Don Jacobo Santa Barbara"
-    kml_path = "kmls/DJ BOGOTA CITIX (4).kml"
-    negotiation_id = 63
-    franchise_user_id = 485
-    city = "bogota"
+    SELECT atu.user_id, n.id, n.name
+    FROM services.area_tariffs_users atu
+    JOIN services.negotiations n on n.id = atu.negotiation_id;
+
+    Eliminación de tarifas anteriores, antes de cargar nuevas:
+
+    DELETE FROM services.area_tariffs
+    WHERE negotiation_id = ##;
+    """
+
+    enterprise = "Nevada Quebradaseca"
+    kml_path = "kmls/Nevada Quebradaseca (2).kml"
+    negotiation_id = 3
+    franchise_user_id = 247
+    city = "bucaramanga"
     permissions = [
         "edit_destinatary_click_lite",
         # "edit_order_value",
