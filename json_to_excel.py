@@ -16,7 +16,7 @@ companies = {
 cities = {
     'medellin': 547,
     'barranquilla': 88,
-    'bucaramanga': 120,
+    'bucaramanga': 118,
     'ibague': 428,
     'girardot': 372,
     'cali': 150,
